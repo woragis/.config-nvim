@@ -32,9 +32,23 @@ return {
       })
 
       vim.lsp.config("basedpyright", {
+        before_init = function(_, config)
+          local python = require("config.python").find_python(config.root_dir)
+          if not python then
+            return
+          end
+          config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+            python = { pythonPath = python },
+          })
+          vim.g.python3_host_prog = python
+        end,
         settings = {
           basedpyright = {
-            analysis = { typeCheckingMode = "standard" },
+            analysis = {
+              typeCheckingMode = "standard",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
           },
         },
       })

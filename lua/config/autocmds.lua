@@ -30,6 +30,15 @@ autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_user_command("PythonVenv", function()
+  local python = require("config.python").find_python()
+  if python then
+    vim.notify("Python: " .. python)
+  else
+    vim.notify("No .venv found; using system python", vim.log.levels.WARN)
+  end
+end, { desc = "Show detected Python interpreter" })
+
 autocmd("FileType", {
   group = augroup("q_to_close", { clear = true }),
   pattern = { "help", "qf", "lspinfo", "man", "checkhealth" },
