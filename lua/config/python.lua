@@ -54,4 +54,40 @@ function M.open_terminal(vertical)
   vim.cmd("startinsert")
 end
 
+local function python_exe()
+  return M.find_python() or vim.fn.exepath("python3") or "python3"
+end
+
+local function run_in_split(cmd)
+  vim.cmd("botright split")
+  vim.cmd("resize 12")
+  vim.fn.jobstart(cmd, { term = true, env = M.term_env() })
+  vim.cmd("startinsert")
+end
+
+function M.run_file()
+  local file = vim.api.nvim_buf_get_name(0)
+  if file == "" then
+    vim.notify("No file to run", vim.log.levels.WARN)
+    return
+  end
+  vim.cmd("write")
+  run_in_split({ python_exe(), file })
+end
+
+function M.pytest_file()
+  local file = vim.api.nvim_buf_get_name(0)
+  if file == "" then
+    vim.notify("No file to test", vim.log.levels.WARN)
+    return
+  end
+  vim.cmd("write")
+  run_in_split({ python_exe(), "-m", "pytest", file })
+end
+
+function M.pytest_project()
+  local root = vim.fs.root(0, { "pyproject.toml", "pytest.ini", "setup.py", ".git" }) or vim.fn.getcwd()
+  run_in_split({ python_exe(), "-m", "pytest", root })
+end
+
 return M

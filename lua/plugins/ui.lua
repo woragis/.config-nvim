@@ -32,6 +32,7 @@ return {
         { "<leader>l", group = "lsp" },
         { "<leader>n", group = "notes" },
         { "<leader>s", group = "symbols" },
+        { "<leader>r", group = "run" },
       },
     },
   },
