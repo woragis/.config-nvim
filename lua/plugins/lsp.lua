@@ -78,6 +78,7 @@ return {
           "prettier",
           "goimports",
           "debugpy",
+          "js-debug-adapter",
         },
       })
     end,

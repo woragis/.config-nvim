@@ -45,9 +45,27 @@ return {
       {
         "<leader>dt",
         function()
-          require("dap-python").test_method()
+          local ft = vim.bo.filetype
+          if ft == "python" then
+            require("dap-python").test_method()
+            return
+          end
+          if ft:find("javascript", 1, true) or ft:find("typescript", 1, true) then
+            require("dap").run({
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch file",
+              program = "${file}",
+              cwd = "${workspaceFolder}",
+              runtimeExecutable = require("config.javascript").tsx_bin() or "node",
+              sourceMaps = true,
+              skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+            })
+            return
+          end
+          require("dap").continue()
         end,
-        desc = "Debug nearest test",
+        desc = "Debug nearest test or current file",
       },
       {
         "<leader>du",
@@ -69,6 +87,59 @@ return {
       require("dap-python").test_runner = "pytest"
       require("dap-python").resolve_python = function()
         return require("config.python").find_python() or vim.fn.exepath("python3") or "python3"
+      end
+
+      local js_debug = vim.fn.stdpath("data")
+        .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = { js_debug, "${port}", "127.0.0.1" },
+        },
+      }
+
+      local js_configs = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          runtimeExecutable = function()
+            return require("config.javascript").tsx_bin() or "node"
+          end,
+          sourceMaps = true,
+          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+        },
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Next.js dev",
+          cwd = "${workspaceFolder}",
+          runtimeExecutable = "node",
+          program = "${workspaceFolder}/node_modules/next/dist/bin/next",
+          args = { "dev" },
+          console = "integratedTerminal",
+          sourceMaps = true,
+          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach 9229",
+          address = "127.0.0.1",
+          port = 9229,
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+        },
+      }
+
+      for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+        dap.configurations[language] = js_configs
       end
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
