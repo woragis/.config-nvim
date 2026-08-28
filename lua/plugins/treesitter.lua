@@ -23,19 +23,15 @@ local parsers = {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").install(parsers)
-
-      vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
-        callback = function(event)
-          if not pcall(vim.treesitter.start, event.buf) then
-            return
-          end
-          vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end,
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = parsers,
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
       })
     end,
   },
