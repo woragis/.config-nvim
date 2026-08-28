@@ -31,6 +31,18 @@ return {
         },
       })
 
+      vim.lsp.config("gopls", {
+        settings = {
+          gopls = {
+            staticcheck = true,
+            analyses = {
+              unusedparams = true,
+              nilness = true,
+            },
+          },
+        },
+      })
+
       vim.lsp.config("basedpyright", {
         before_init = function(_, config)
           local python = require("config.python").find_python(config.root_dir)
