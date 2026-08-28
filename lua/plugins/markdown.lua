@@ -13,7 +13,6 @@ return {
         },
       },
       picker = { name = "telescope.nvim" },
-      completion = { nvim_cmp = false, blink = true },
       frontmatter = { enabled = false },
       note_id_func = function(title)
         if title then
