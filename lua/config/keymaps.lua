@@ -5,6 +5,9 @@ local map = vim.keymap.set
 
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>w", "<cmd>write<CR>", { desc = "Write file" })
+map("n", "<leader>?", function()
+  require("config.cheatsheet").show()
+end, { desc = "Cheatsheet" })
 
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics (loclist)" })
 map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line diagnostic" })

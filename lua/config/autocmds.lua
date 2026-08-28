@@ -39,6 +39,22 @@ vim.api.nvim_create_user_command("PythonVenv", function()
   end
 end, { desc = "Show detected Python interpreter" })
 
+autocmd("VimEnter", {
+  group = augroup("cheatsheet_startup", { clear = true }),
+  callback = function()
+    if vim.fn.argc() > 0 or #vim.api.nvim_list_uis() == 0 then
+      return
+    end
+    vim.schedule(function()
+      require("config.cheatsheet").show()
+    end)
+  end,
+})
+
+vim.api.nvim_create_user_command("Cheatsheet", function()
+  require("config.cheatsheet").show()
+end, { desc = "Show keymap cheatsheet" })
+
 autocmd("FileType", {
   group = augroup("q_to_close", { clear = true }),
   pattern = { "help", "qf", "lspinfo", "man", "checkhealth" },
