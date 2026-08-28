@@ -22,16 +22,16 @@ map("n", "<leader>T", function()
 end, { desc = "Terminal (vsplit)" })
 
 map("n", "<leader>rr", function()
-  require("config.python").run_file()
-end, { desc = "Run current file" })
+  require("config.run").run()
+end, { desc = "Run (scripts or file)" })
 
 map("n", "<leader>rt", function()
-  require("config.python").pytest_project()
-end, { desc = "Pytest project" })
+  require("config.run").test_project()
+end, { desc = "Test project" })
 
 map("n", "<leader>rf", function()
-  require("config.python").pytest_file()
-end, { desc = "Pytest current file" })
+  require("config.run").test_file()
+end, { desc = "Test current file" })
 
 -- Leave terminal-insert without the default Ctrl-\ Ctrl-n chord.
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
