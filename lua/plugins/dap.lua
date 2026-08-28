@@ -5,6 +5,7 @@ return {
       "nvim-neotest/nvim-nio",
       { "rcarriga/nvim-dap-ui", opts = {} },
       "mfussenegger/nvim-dap-python",
+      "leoluz/nvim-dap-go",
     },
     keys = {
       {
@@ -50,6 +51,10 @@ return {
             require("dap-python").test_method()
             return
           end
+          if ft == "go" then
+            require("dap-go").debug_test()
+            return
+          end
           if ft:find("javascript", 1, true) or ft:find("typescript", 1, true) then
             require("dap").run({
               type = "pwa-node",
@@ -88,6 +93,8 @@ return {
       require("dap-python").resolve_python = function()
         return require("config.python").find_python() or vim.fn.exepath("python3") or "python3"
       end
+
+      require("dap-go").setup()
 
       local js_debug = vim.fn.stdpath("data")
         .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"

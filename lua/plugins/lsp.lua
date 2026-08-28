@@ -91,6 +91,7 @@ return {
           "goimports",
           "debugpy",
           "js-debug-adapter",
+          "delve",
         },
       })
     end,
