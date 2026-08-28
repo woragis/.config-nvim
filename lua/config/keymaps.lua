@@ -13,5 +13,13 @@ map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line diagnostic" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" })
 
--- Terminal: leave insert-like mode without a chord.
+map("n", "<leader>t", function()
+  require("config.python").open_terminal(false)
+end, { desc = "Terminal (split)" })
+
+map("n", "<leader>T", function()
+  require("config.python").open_terminal(true)
+end, { desc = "Terminal (vsplit)" })
+
+-- Leave terminal-insert without the default Ctrl-\ Ctrl-n chord.
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
