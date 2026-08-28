@@ -31,6 +31,7 @@ return {
         { "<leader>g", group = "git" },
         { "<leader>l", group = "lsp" },
         { "<leader>n", group = "notes" },
+        { "<leader>s", group = "symbols" },
       },
     },
   },
