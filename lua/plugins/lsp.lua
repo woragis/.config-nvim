@@ -76,6 +76,7 @@ return {
           "stylua",
           "prettier",
           "goimports",
+          "debugpy",
         },
       })
     end,

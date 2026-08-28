@@ -33,6 +33,7 @@ return {
         { "<leader>n", group = "notes" },
         { "<leader>s", group = "symbols" },
         { "<leader>r", group = "run" },
+        { "<leader>d", group = "debug" },
       },
     },
   },
