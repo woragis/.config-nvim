@@ -1,0 +1,4 @@
+*.log
+.DS_Store
+*.bak
+lazy-lock.json.bak
