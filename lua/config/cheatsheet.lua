@@ -40,6 +40,7 @@ local lines = {
   "",
   "  terminal / extras",
   "    <leader>t          terminal split          <leader>T    terminal vertical",
+  "    <leader>c          abrir / focar Codex     :Codex       mesmo comando",
   "    esc esc            sair do insert do terminal",
   "    sa  sd  sr         surround add/delete/replace",
   "    :PythonVenv        mostra o python do .venv",

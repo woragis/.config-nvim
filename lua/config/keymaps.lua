@@ -24,6 +24,14 @@ map("n", "<leader>T", function()
   require("config.python").open_terminal(true)
 end, { desc = "Terminal (vsplit)" })
 
+map("n", "<leader>c", function()
+  require("config.codex").open()
+end, { desc = "Codex (open / focus)" })
+
+vim.api.nvim_create_user_command("Codex", function()
+  require("config.codex").open()
+end, { desc = "Open or focus Codex for this project", force = true })
+
 map("n", "<leader>rr", function()
   require("config.run").run()
 end, { desc = "Run (scripts or file)" })
