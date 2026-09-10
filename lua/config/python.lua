@@ -44,13 +44,14 @@ function M.term_env()
 end
 
 function M.open_terminal(vertical)
+  local env = M.term_env()
   if vertical then
-    vim.cmd("vsplit")
+    vim.cmd("vnew")
   else
-    vim.cmd("botright split")
+    vim.cmd("botright new")
     vim.cmd("resize 12")
   end
-  vim.fn.jobstart(vim.o.shell, { term = true, env = M.term_env() })
+  vim.fn.jobstart(vim.o.shell, { term = true, env = env })
   vim.cmd("startinsert")
 end
 
