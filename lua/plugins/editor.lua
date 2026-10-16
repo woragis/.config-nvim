@@ -1,15 +1,24 @@
 return {
   {
-    "stevearc/oil.nvim",
-    lazy = false,
+    "nvim-tree/nvim-tree.lua",
+    dependencies = { "nvim-mini/mini.icons" },
     opts = {
-      view_options = {
-        show_hidden = true,
+      view = {
+        width = 30,
+      },
+      renderer = {
+        group_empty = true,
+      },
+      filters = {
+        dotfiles = false,
+      },
+      update_focused_file = {
+        enable = true,
+        update_root = false,
       },
     },
     keys = {
-      { "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
-      { "<leader>e", "<cmd>Oil<CR>", desc = "Explore files" },
+      { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree" },
     },
   },
 

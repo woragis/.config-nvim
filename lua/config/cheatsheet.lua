@@ -6,7 +6,7 @@ local lines = {
   "  arquivos",
   "    <leader><leader>   achar arquivos          <leader>/    grep no projeto",
   "    <leader>b          buffers                 <leader>o    recentes",
-  "    -  /  <leader>e    oil (pasta do arquivo)  <leader>w    salvar",
+  "    <leader>e         arvore de arquivos       <leader>w    salvar",
   "",
   "  codigo  (lsp)",
   "    gd                 ir para definicao       gD           declaracao",
