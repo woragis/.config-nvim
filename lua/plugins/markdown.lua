@@ -1,5 +1,48 @@
 return {
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = "markdown",
+    opts = {},
+    keys = {
+      {
+        "<leader>mp",
+        function()
+          require("render-markdown").preview()
+        end,
+        desc = "Markdown preview",
+      },
+      {
+        "<leader>mt",
+        "<cmd>RenderMarkdown toggle<CR>",
+        desc = "Toggle Markdown rendering",
+      },
+      {
+        "<leader>mx",
+        function()
+          local line = vim.api.nvim_get_current_line()
+          local prefix, state = line:match("^(%s*[-*+]%s+)%[([ xX])%]")
+
+          if not prefix then
+            prefix, state = line:match("^(%s*%d+[.)]%s+)%[([ xX])%]")
+          end
+
+          if not prefix then
+            vim.notify("No checkbox on this line", vim.log.levels.INFO)
+            return
+          end
+
+          local marker = state == " " and "x" or " "
+          local checkbox_start = #prefix + 1
+          vim.api.nvim_set_current_line(
+            line:sub(1, checkbox_start) .. marker .. line:sub(checkbox_start + 2)
+          )
+        end,
+        ft = "markdown",
+        desc = "Toggle Markdown checkbox",
+      },
+    },
+  },
+  {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
     ft = "markdown",
