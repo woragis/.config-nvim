@@ -1,7 +1,7 @@
 return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = "markdown",
+    lazy = false,
     opts = {},
     keys = {
       {
@@ -45,7 +45,7 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
-    ft = "markdown",
+    lazy = false,
     cmd = "Obsidian",
     opts = {
       legacy_commands = false,
