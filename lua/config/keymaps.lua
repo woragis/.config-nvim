@@ -16,6 +16,10 @@ map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line diagnostic" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" })
 
+for key, direction in pairs({ h = "left", j = "down", k = "up", l = "right" }) do
+  map("n", "<C-" .. key .. ">", "<C-w>" .. key, { desc = "Focus " .. direction .. " window" })
+end
+
 map("n", "<leader>t", function()
   require("config.python").open_terminal(false)
 end, { desc = "Terminal (split)" })
@@ -35,6 +39,10 @@ end, { desc = "Open or focus Codex for this project", force = true })
 map("n", "<leader>rr", function()
   require("config.run").run()
 end, { desc = "Run (scripts or file)" })
+
+map("n", "<leader>rp", function()
+  require("config.run").project_tasks()
+end, { desc = "Project tasks" })
 
 map("n", "<leader>rt", function()
   require("config.run").test_project()

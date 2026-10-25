@@ -32,9 +32,9 @@ function M.venv_dir(python)
   return vim.fn.fnamemodify(python, ":h:h")
 end
 
-function M.term_env()
+function M.term_env(root)
   local env = vim.fn.environ()
-  local python = M.find_python()
+  local python = M.find_python(root)
   if python then
     local venv = M.venv_dir(python)
     env.VIRTUAL_ENV = venv

@@ -13,7 +13,13 @@ return {
     "mason-org/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
+      {
+        "mason-org/mason.nvim",
+        opts = {
+          -- Avoid GitHub API refresh failures during startup; use :MasonUpdate manually.
+          registry_cache = { refresh = false },
+        },
+      },
       "neovim/nvim-lspconfig",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "saghen/blink.cmp",

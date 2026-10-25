@@ -68,6 +68,10 @@ local function run_script_cmd(root, script)
   return { pm, "run", script }
 end
 
+function M.script_command(root, script)
+  return run_script_cmd(root, script)
+end
+
 function M.pick_script()
   local root = M.root()
   if not root then
